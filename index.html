@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100d1b">
+  <title>ScootGoal — копилка мечты</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <section id="authScreen" class="auth-screen">
+    <div class="auth-card">
+      <a class="brand auth-brand" href="#"><span class="brand-icon">✦</span><span>Scoot<span class="brand-accent">Goal</span><small>YOUR DREAM, YOUR PACE</small></span></a>
+      <div class="eyebrow">ТВОИ ЦЕЛИ. ТВОЙ ПУТЬ.</div>
+      <h1 id="authTitle">Твоя копилка мечты ✨</h1>
+      <p class="auth-subtitle" id="authSubtitle">Войди, чтобы продолжить копить. Твои цели и заработок будут доступны только в твоём аккаунте.</p>
+      <form id="authForm">
+        <label>Email<input id="authEmail" type="email" autocomplete="email" placeholder="you@example.com" required maxlength="254"></label>
+        <label>Пароль<input id="authPassword" type="password" autocomplete="current-password" placeholder="Минимум 8 символов" minlength="8" required maxlength="200"></label>
+        <div id="authError" class="modal-error"></div>
+        <button id="authSubmit" class="primary-btn auth-submit" type="submit">Войти</button>
+      </form>
+      <p class="auth-switch"><span id="authSwitchText">Впервые здесь?</span> <button id="authSwitch" type="button">Создать аккаунт</button></p>
+      <p class="auth-privacy">У каждого аккаунта отдельные цели, операции и история смен.</p>
+    </div>
+  </section>
+  <div class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-icon">✦</span><span>Scoot<span class="brand-accent">Goal</span><small>YOUR DREAM, YOUR PACE</small></span></a>
+      <div class="side-label">МЕНЮ</div>
+      <button class="nav-item active" data-view="dashboard"><span>◫</span> Обзор</button>
+      <button class="nav-item" data-view="goals"><span>◎</span> Мои цели</button>
+      <button class="nav-item" data-view="history"><span>↗</span> История операций</button>
+      <button class="nav-item" data-view="earnings"><span>₴</span> Заработок</button>
+      <div class="sidebar-bottom">
+        <div class="tip-card"><span class="tip-spark">✧</span><strong>Маленький шаг —<br>большая мечта</strong><p>Каждый взнос приближает тебя к цели.</p><div class="tip-line"><i></i></div></div>
+        <div class="profile"><div class="avatar">S</div><div class="profile-text"><strong id="profileEmail">Моя копилка</strong><small>Личный план накоплений</small></div><button class="profile-dots" id="logoutBtn" title="Выйти из аккаунта">↪</button></div>
+      </div>
+    </aside>
+    <main class="main">
+      <header class="topbar">
+        <div><div class="eyebrow">ТВОИ ФИНАНСЫ, ТВОИ ПРАВИЛА</div><h1 id="greeting">Привет! Продолжаем копить ✨</h1><p class="subhead">Каждая злотая приближает тебя к мечте.</p></div>
+        <div class="top-actions"><span class="today-pill" id="today"></span><button class="icon-btn" id="exportBtn" title="Экспортировать резервную копию">↧</button><button class="icon-btn" id="importBtn" title="Импортировать резервную копию">↥</button><input id="importFile" type="file" accept=".json,application/json" hidden><button class="primary-btn" id="addMoneyTop">＋ Добавить деньги</button></div>
+      </header>
+      <div id="notice" class="notice hidden"></div>
+      <section id="dashboardView">
+        <div class="stats-grid">
+          <article class="stat-card balance-card"><div class="stat-top"><span>Всего накоплено</span><span class="stat-icon purple">↗</span></div><div class="stat-value" id="totalSaved">0 zł</div><div class="stat-foot"><span class="dot-live"></span> Деньги на пути к мечте</div><div class="balance-glow"></div></article>
+          <article class="stat-card"><div class="stat-top"><span>Цели достигнуты</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="goalsDone">0 <small>/ 0</small></div><div class="stat-foot muted">Закрытые цели</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Осталось накопить</span><span class="stat-icon orange">◷</span></div><div class="stat-value" id="totalRemaining">0 zł</div><div class="stat-foot muted">До всех твоих целей</div></article>
+        </div>
+        <div class="section-heading"><div><div class="eyebrow">ФОКУС НА ГЛАВНОМ</div><h2>Твоя главная цель</h2></div><button class="text-btn" id="editGoalBtn">Настроить цель ↗</button></div>
+        <article class="hero-goal" id="heroGoal">
+          <div class="hero-copy"><div class="goal-chip"><span class="chip-dot"></span> МОЯ МЕЧТА</div><h2 id="heroName">KuKirin G4</h2><p class="hero-description">Свобода передвижения начинается с маленьких накоплений.</p><div class="amount-row"><div><span class="label">Уже накоплено</span><div class="hero-amount" id="heroSaved">0 zł</div></div><div class="target-amount"><span class="label">Цель</span><strong id="heroTarget">3 600 zł</strong></div></div><div class="progress-track"><div class="progress-fill" id="heroProgress"></div></div><div class="progress-meta"><span id="heroPercent">0% выполнено</span><span id="heroLeft">Осталось 3 600 zł</span></div><div class="hero-buttons"><button class="primary-btn" id="heroAdd">＋ Пополнить копилку</button><button class="ghost-btn" id="heroWithdraw">− Снять деньги</button></div></div>
+          <div class="hero-art"><div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div><div class="art-star star-one">✦</div><div class="art-star star-two">✧</div><div class="scooter-emoji" id="heroIcon">🛴</div><div class="art-caption"><span class="art-caption-icon">✦</span><div><strong>Dream in progress</strong><small>Твой путь. Твой темп.</small></div></div></div>
+        </article>
+        <div class="content-grid">
+          <section class="panel"><div class="panel-heading"><div><h3>Последние операции</h3><p>Все взносы и снятия в одном месте</p></div><button class="text-btn" id="allHistoryBtn">Вся история ↗</button></div><div id="recentTransactions" class="transactions-list"></div></section>
+          <section class="panel pace-panel"><div class="panel-heading"><div><h3>Твой темп</h3><p>План достижения цели</p></div><span class="stat-icon purple">⌁</span></div><div class="pace-amount" id="paceMonthly">— <small>/ месяц</small></div><p class="pace-caption" id="paceDescription">Укажи дату цели, чтобы увидеть план.</p><div class="pace-divider"></div><div class="pace-row"><span>До цели осталось</span><strong id="daysLeft">—</strong></div><div class="pace-row"><span>Нужно в неделю</span><strong id="paceWeekly">—</strong></div><div class="pace-row"><span>Ожидаемая дата</span><strong id="expectedDate">—</strong></div></section>
+        </div>
+        <div class="section-heading goals-heading"><div><div class="eyebrow">ПЛАНЫ НА БУДУЩЕЕ</div><h2>Мои цели</h2></div><button class="secondary-btn" id="newGoalBtn">＋ Новая цель</button></div>
+        <div id="goalCards" class="goal-cards"></div>
+      </section>
+      <section id="goalsView" class="alternate-view hidden"><div class="section-heading"><div><div class="eyebrow">ВСЁ, К ЧЕМУ СТРЕМИШЬСЯ</div><h2>Мои цели</h2></div><button class="primary-btn" id="newGoalBtn2">＋ Новая цель</button></div><div id="allGoalCards" class="goal-cards"></div></section>
+      <section id="historyView" class="alternate-view hidden"><div class="section-heading"><div><div class="eyebrow">ДВИЖЕНИЕ ДЕНЕГ</div><h2>История операций</h2></div><select id="historyFilter" class="filter-select"><option value="all">Все операции</option><option value="deposit">Пополнения</option><option value="withdrawal">Снятия</option></select></div><div class="panel"><div id="fullTransactions" class="transactions-list"></div></div></section>
+      <section id="earningsView" class="alternate-view hidden">
+        <div class="section-heading"><div><div class="eyebrow">ТВОЯ РАБОТА — ТВОИ ДЕНЬГИ</div><h2>Сколько уже заработано</h2></div></div>
+        <div class="stats-grid earnings-stats">
+          <article class="stat-card balance-card"><div class="stat-top"><span>Всего заработано</span><span class="stat-icon purple">↗</span></div><div class="stat-value" id="earningsTotal">0 zł</div><div class="stat-foot"><span class="dot-live"></span> По всем записанным сменам</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Отработано смен</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="earningsShifts">0</div><div class="stat-foot muted">Номер каждой смены можно указать вручную</div></article>
+          <article class="stat-card"><div class="stat-top"><span>Всего часов</span><span class="stat-icon orange">◷</span></div><div class="stat-value" id="earningsHours">0 ч</div><div class="stat-foot muted">Сумма часов за все дни</div></article>
+        </div>
+        <div class="section-heading"><div><div class="eyebrow">ДОБАВИТЬ РАБОЧИЙ ДЕНЬ</div><h2>Новая смена</h2></div></div>
+        <div class="panel earnings-form-panel">
+          <form id="earningsForm" class="earnings-form">
+            <label>День по счёту / № смены<input id="shiftNo" type="number" min="1" step="1" placeholder="Например, 4" required></label>
+            <label>Дата<input id="shiftDate" type="date" required></label>
+            <label>Ставка, zł/ч<input id="shiftRate" type="number" min="0.01" step="0.01" placeholder="37" required></label>
+            <label>Отработано часов<input id="shiftHours" type="number" min="0.01" max="24" step="0.01" placeholder="8" required></label>
+            <label class="earnings-note">Заметка <span class="optional">необязательно</span><input id="shiftNote" maxlength="200" placeholder="Например, Smyk — первая смена"></label>
+            <div class="earnings-preview"><span>За эту смену заработано</span><strong id="shiftPreview">0,00 zł</strong></div>
+            <button class="primary-btn" type="submit">＋ Сохранить смену</button>
+            <div class="modal-error" id="earningsError"></div>
+          </form>
+        </div>
+        <div class="section-heading"><div><div class="eyebrow">ИСТОРИЯ РАБОТЫ</div><h2>Все смены</h2></div><span class="today-pill" id="earningsCount">0 записей</span></div>
+        <div class="panel"><div id="earningsList" class="earnings-list"></div></div>
+      </section>
+      <footer>Сделано для большой мечты <span>✦</span> <small>Данные аккаунта хранятся на сервере и доступны после входа.</small></footer>
+    </main>
+  </div>
+
+  <dialog id="moneyDialog" class="modal">
+    <form id="moneyForm" method="dialog">
+      <div class="modal-head"><div><div class="eyebrow">ДВИЖЕНИЕ ДЕНЕГ</div><h2 id="moneyTitle">Пополнить копилку</h2></div><button type="button" class="close-btn" data-close="moneyDialog">×</button></div>
+      <label>Цель<select id="moneyGoal" required></select></label>
+      <div class="type-toggle"><button type="button" class="type-btn selected" data-type="deposit">＋ Пополнение</button><button type="button" class="type-btn" data-type="withdrawal">− Снятие</button></div>
+      <label>Сумма, zł<div class="money-input-wrap"><span>zł</span><input id="moneyAmount" type="number" min="0.01" step="0.01" placeholder="Например, 200" required></div></label>
+      <label>Заметка <span class="optional">необязательно</span><input id="moneyNote" maxlength="200" placeholder="Например, зарплата за смену"></label>
+      <div class="modal-error" id="moneyError"></div>
+      <button class="primary-btn wide-btn" type="submit" id="moneySubmit">Сохранить операцию</button>
+    </form>
+  </dialog>
+
+  <dialog id="goalDialog" class="modal">
+    <form id="goalForm" method="dialog">
+      <div class="modal-head"><div><div class="eyebrow">НОВЫЙ ПЛАН</div><h2 id="goalModalTitle">Создать цель</h2></div><button type="button" class="close-btn" data-close="goalDialog">×</button></div>
+      <input type="hidden" id="goalId">
+      <label>Название цели<input id="goalName" maxlength="80" placeholder="Например, KuKirin G4" required></label>
+      <div class="form-row"><label>Сколько нужно, zł<input id="goalTarget" type="number" min="1" step="0.01" placeholder="3600" required></label><label>Желаемая дата<input id="goalDate" type="date"></label></div>
+      <label>Иконка или эмодзи<input id="goalIcon" maxlength="8" value="🛴" placeholder="🛴"></label>
+      <label class="check-label"><input id="paceEnabled" type="checkbox"> Показывать, сколько откладывать, чтобы успеть к выбранной дате</label>
+      <div id="paceSettings" class="pace-settings hidden"><label>Как показывать план<select id="pacePeriod"><option value="daily">В день</option><option value="weekly">В неделю</option><option value="monthly">В месяц</option></select></label><p class="field-hint">Расчёт будет отображаться под целью, если задана желаемая дата.</p></div>
+      <div class="modal-error" id="goalError"></div>
+      <button class="primary-btn wide-btn" type="submit">Сохранить цель</button>
+      <button class="danger-text hidden" type="button" id="deleteGoalBtn">Удалить эту цель</button>
+    </form>
+  </dialog>
+  <script src="/app.js"></script>
+</body>
+</html>

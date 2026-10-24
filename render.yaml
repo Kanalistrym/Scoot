@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: scootgoal
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/auth/me
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DB_PATH
+        value: /var/data/scootgoal.db
+    disk:
+      name: scootgoal-data
+      mountPath: /var/data
+      sizeGB: 1
